@@ -30,7 +30,7 @@ router.post("/login", async (req, res) => {
     const validated = await bcrypt.compare(req.body.password, user.password); //aqui comparo las contraseñas
     !validated && res.status(400).json("contraseña incorrecta"); // hago la validacion de la contraseña
 
-    const { password, ...others } = user._doc; //para que no muestre la contraseña
+    const { password, ...others } = user._doc; //para que no muestre la contraseña pero si las otras propiedades
 
     res.status(200).json(others);
   } catch (error) {

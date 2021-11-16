@@ -22,11 +22,12 @@ const storage = multer.diskStorage({
     cb(null, "images");
   },
   filename: (req, file, cb) => {
-    cb(null, req.body.name);
+    cb(null, "helo jpg");
   },
 });
 
 const upload = multer({ storage: storage });
+
 app.post("/servidor/upload", upload.single("file"), (req, res) => {
   res.status(200).json("el archivo se a subido");
 });

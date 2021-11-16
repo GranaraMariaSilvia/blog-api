@@ -74,15 +74,15 @@ router.get("/:id", async (req, res) => {
 
 //GET ALL POST
 
-router.get("/", async (req, res) => {
-  const username = req.query.user;
+router.get("/", async (req, res) => { //carga todas las publicaciones
+  const username = req.query.user; // aqui seria ? y el valor = es el username
   const catName = req.query.cat;
   try {
     let posts;
     if (username) {
-      posts = await Post.find({ username: username });
+      posts = await Post.find({ username: username }); //que busque las publicaciones con este username
     } else if (catName) {
-      posts = await Post.find({
+      posts = await Post.find({  //las publicaciones que incluyan la categoria de catName
         categories: {
           $in: [catName],
         },
