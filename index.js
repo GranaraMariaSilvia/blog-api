@@ -7,13 +7,20 @@ const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const categoryRoute = require("./routes/categories");
 const multer = require("multer");
+const path = require("path");
+
 
 dotenv.config();
 
 app.use(express.json()); //para evitar el error en postman
+app.use("/images",express.static(path.join(__dirname,"/images")))
 
 mongoose
-  .connect(process.env.MONGO_URL) //aqui se elimino el  usenewurlparcer, usecreateindex
+  .connect(process.env.MONGO_URL,{
+    useNewUrlParser : true,
+    
+    useUnifiedTopology:true
+  }) //aqui se elimino el  usenewurlparcer, usecreateindex
   .then(console.log("conectado a MongoDB"))
   .catch((error) => console.log(error));
 
@@ -22,7 +29,7 @@ const storage = multer.diskStorage({
     cb(null, "images");
   },
   filename: (req, file, cb) => {
-    cb(null, "helo jpg");
+    cb(null, req.body.name);
   },
 });
 
